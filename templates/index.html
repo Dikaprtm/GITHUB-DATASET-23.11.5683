@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Airline Satisfaction Prediction</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#000000,#111827,#1f2937);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:30px;
+            color:white;
+        }
+
+        .container{
+            width:100%;
+            max-width:1100px;
+            background:#111827;
+            border-radius:25px;
+            overflow:hidden;
+            display:flex;
+            box-shadow:
+            0 10px 40px rgba(0,0,0,0.7),
+            0 0 20px rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.08);
+        }
+
+        .left{
+            width:45%;
+            background:linear-gradient(180deg,#000000,#111827,#1e293b);
+            padding:45px;
+            color:white;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+
+        .left h1{
+            font-size:40px;
+            margin-bottom:20px;
+            color:#ffffff;
+        }
+
+        .left p{
+            line-height:1.9;
+            font-size:16px;
+            color:#d1d5db;
+        }
+
+        .info-box{
+            margin-top:30px;
+            background:rgba(255,255,255,0.05);
+            padding:22px;
+            border-radius:18px;
+            border:1px solid rgba(255,255,255,0.08);
+            backdrop-filter:blur(10px);
+        }
+
+        .info-box h3{
+            margin-bottom:12px;
+            color:#60a5fa;
+        }
+
+        .right{
+            width:55%;
+            padding:45px;
+            color:#f9fafb;
+            background:#0f172a;
+        }
+
+        .right h2{
+            margin-bottom:25px;
+            text-align:center;
+            color:#60a5fa;
+            font-size:30px;
+        }
+
+        .input-group{
+            margin-bottom:18px;
+            text-align:left;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+            color:#e5e7eb;
+        }
+
+        .input-group input{
+            width:100%;
+            padding:14px;
+            border:1px solid #374151;
+            border-radius:12px;
+            font-size:15px;
+            background:#111827;
+            color:white;
+            transition:0.3s;
+        }
+
+        .input-group input::placeholder{
+            color:#9ca3af;
+        }
+
+        .input-group input:focus{
+            outline:none;
+            border-color:#60a5fa;
+            box-shadow:0 0 10px rgba(96,165,250,0.5);
+        }
+
+        button{
+            width:100%;
+            padding:15px;
+            background:linear-gradient(135deg,#2563eb,#1d4ed8);
+            color:white;
+            border:none;
+            border-radius:14px;
+            font-size:16px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+            box-shadow:0 5px 15px rgba(37,99,235,0.4);
+        }
+
+        button:hover{
+            background:linear-gradient(135deg,#1d4ed8,#2563eb);
+            transform:translateY(-3px);
+            box-shadow:0 8px 20px rgba(37,99,235,0.6);
+        }
+
+        .result{
+            margin-top:25px;
+            padding:20px;
+            border-radius:15px;
+            background:rgba(37,99,235,0.15);
+            border:1px solid rgba(96,165,250,0.3);
+            color:#93c5fd;
+            font-weight:bold;
+            font-size:18px;
+            backdrop-filter:blur(10px);
+        }
+
+        .recap{
+            margin-top:20px;
+            padding:18px;
+            border-radius:15px;
+            background:rgba(255,255,255,0.05);
+            border:1px solid rgba(255,255,255,0.08);
+            color:#e5e7eb;
+        }
+
+        .recap h3{
+            margin-bottom:15px;
+            color:#60a5fa;
+        }
+
+        .recap p{
+            margin-bottom:10px;
+        }
+
+        .footer{
+            margin-top:25px;
+            text-align:center;
+            font-size:13px;
+            color:#9ca3af;
+        }
+
+        @media(max-width:900px){
+
+            .container{
+                flex-direction:column;
+            }
+
+            .left,
+            .right{
+                width:100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left">
+
+        <h1>✈ Airline Satisfaction Prediction</h1>
+
+        <p>
+            Sistem ini digunakan untuk memprediksi tingkat kepuasan
+            penumpang maskapai menggunakan Machine Learning
+            dengan algoritma Random Forest.
+        </p>
+
+        <div class="info-box">
+
+            <h3>📊 Features Used</h3>
+
+            <p>
+                • Gender <br>
+                • Age <br>
+                • Flight Distance <br>
+                • Wifi Service <br>
+                • Online Boarding
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h3>🤖 Machine Learning</h3>
+
+            <p>
+                Algoritma:
+                Random Forest Classifier
+                dengan akurasi sekitar 95%.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right">
+
+        <h2>Passenger Form</h2>
+
+        <form action="/predict" method="POST">
+
+            <div class="input-group">
+
+                <label>Gender</label>
+
+                <input
+                    type="number"
+                    name="gender"
+                    placeholder="0 = Female | 1 = Male"
+                    required
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Age</label>
+
+                <input
+                    type="number"
+                    name="age"
+                    placeholder="Enter age"
+                    required
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Flight Distance</label>
+
+                <input
+                    type="number"
+                    name="flight_distance"
+                    placeholder="Enter flight distance"
+                    required
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Wifi Service (1-5)</label>
+
+                <input
+                    type="number"
+                    name="wifi"
+                    placeholder="Rate wifi service"
+                    required
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Online Boarding (1-5)</label>
+
+                <input
+                    type="number"
+                    name="online_boarding"
+                    placeholder="Rate online boarding"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Predict Satisfaction
+            </button>
+
+        </form>
+
+        {% if prediction_text %}
+
+        <div class="result">
+
+            {{ prediction_text }}
+
+        </div>
+
+        {% endif %}
+
+        <div class="footer">
+
+            Airline Passenger Satisfaction Prediction System
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
